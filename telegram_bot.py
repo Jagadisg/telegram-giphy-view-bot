@@ -38,7 +38,16 @@ async def start(update, context):
         await update.message.reply_text(
             f"Hi! {username.first_name}.\nI'm the Giphy Views Tracker Bot.\nSend me a command like '/view [Gif Link]' to track your project's daily views.\nFor example : /view <link of the gif will be availabe in the share component or copy the url and paste>"
         )
-
+        
+def help_command(update: Update, context) -> None:
+    """Send a message when the command /help is issued."""
+    update.message.reply_text(
+        "This is a Giphy Views Tracker Bot.\n"
+        "You can use the following commands:\n"
+        "/start - Start the bot and get instructions.\n"
+        "/views - Track your Giphy project's daily views.\n"
+        "/help - Get help and information about available commands."
+    )
 
 
 def main():
