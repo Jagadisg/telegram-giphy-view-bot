@@ -8,7 +8,7 @@ from config import  TOKEN
 # Replace with your Telegram Bot Token
 BOT_TOKEN = TOKEN
 
-
+print(BOT_TOKEN)
 
 # Update interval in seconds (adjust as needed)
 UPDATE_INTERVAL = 86400  # 24 hours
@@ -50,7 +50,7 @@ def main():
         job=JobQueue()
         job.run_repeating(callback=send_daily_update, interval=UPDATE_INTERVAL, first=0)
 
-        application.run_polling(allowed_updates=Update.ALL_TYPES)
+        application.run_polling()
         
            
 
