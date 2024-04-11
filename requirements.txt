@@ -1,0 +1,6 @@
+requests
+loguru
+selenium
+asyncio
+python-telegram-bot
+webdriver-manager-4.0.1

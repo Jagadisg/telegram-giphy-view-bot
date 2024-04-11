@@ -1,0 +1,38 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from loguru import logger
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
+
+
+def get_driver():
+    options = webdriver.ChromeOptions()
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--log-level=3")
+    options.add_argument("--start-maximized")
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
+    return driver
+    
+
+def get_giphy_views(url):
+    try:
+        driver = get_driver()
+        driver.get(url)
+        if "media" in url:
+            wait = WebDriverWait(driver, 30)
+            media = wait.until(EC.presence_of_element_located((By.CLASS_NAME,"media_gif__MBeQG")))
+            media.click()
+        views_count = driver.find_element(By.CLASS_NAME,"ViewCountContainer-sc-15ri43l").text
+        logger.info(views_count)
+        return views_count
+    except Exception as e:
+        logger.error(e)
+
+
+if __name__ == "__main__":
+    pass
