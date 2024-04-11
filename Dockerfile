@@ -17,7 +17,7 @@ RUN pip install --upgrade pip \
     && pip install -r requirements.txt
 
 # Copy bot and scraper files into the container
-COPY telegram_bot.py GiphyViewScrapper.py /app/
+COPY telegram_bot.py GiphyViewScrapper.py config.py /app/
 
 # Start the bot
 CMD ["python", "telegram_bot.py"]
