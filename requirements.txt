@@ -4,3 +4,4 @@ selenium
 asyncio
 python-telegram-bot
 webdriver-manager==4.0.1
+python-telegram-bot[job-queue]
