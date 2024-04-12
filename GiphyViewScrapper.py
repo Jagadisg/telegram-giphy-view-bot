@@ -29,7 +29,9 @@ def get_giphy_views(url):
             media.click()
         views_count = driver.find_element(By.CLASS_NAME,"ViewCountContainer-sc-15ri43l").text
         logger.info(views_count)
+        driver.quit()
         return views_count
+
     except Exception as e:
         logger.error(e)
 
