@@ -50,7 +50,7 @@ async def help_command(update: Update, context) -> None:
 def main():
     
         proxy_url = "http://frwfguep:xowsusda97rnxowsusda97rn@38.154.227.167:5868"
-        application = Application.builder().token(BOT_TOKEN).proxy().get_updates_proxy(proxy_url).build()
+        application = Application.builder().token(BOT_TOKEN).proxy(proxy_url).get_updates_proxy(proxy_url).build()
 
         application.add_handler(CommandHandler("start", start))
         application.add_handler(CommandHandler("views", send_daily_update))
