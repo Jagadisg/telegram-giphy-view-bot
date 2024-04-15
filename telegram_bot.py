@@ -1,5 +1,5 @@
 from telegram import  Update
-from telegram.ext import Application , CommandHandler, JobQueue, ContextTypes
+from telegram.ext import Application , CommandHandler, ContextTypes
 from GiphyViewScrapper import get_giphy_views
 from config import  TOKEN
 from datetime import time
@@ -26,7 +26,10 @@ async def send_daily_update(update, context:ContextTypes.DEFAULT_TYPE):
         current_int = int(current_views.split()[0].replace(",", ""))
         daily_views = current_int - previous_views_dict[user_id]["views"]
         previous_views_dict[user_id]["views"] = current_int
-        context.job_queue.run_daily(callback=daily_update,time=time(hour=1, minute=0),chat_id=update.effective_chat.id,user_id=update.effective_user.id)
+        try:
+            context.job_queue.run_daily(callback=lambda context: daily_update(update, context),time=time(hour=1,minute=0),chat_id=update.effective_chat.id,user_id=update.effective_user.id)
+        except Exception as e:
+            print(e)
         message = f"Your Giphy project `{url}`.\n Has gained {daily_views} views today! and Total view : {current_views}"
         await context.bot.send_message(chat_id=update.effective_chat.id, text=message)
     except Exception as e:
