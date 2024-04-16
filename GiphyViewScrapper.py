@@ -26,26 +26,14 @@ def get_giphy_views(url):
         driver = get_driver()
         driver.get(url)
         if "media" in url and "giphy" in url:
-            try:
-                wait = WebDriverWait(driver, 30)
-                media = wait.until(EC.presence_of_element_located((By.CLASS_NAME,"media_gif__MBeQG")))
-                media.click()
-            except NoSuchElementException as e:
-                logger.error("NoSuchElementException occurred: {}".format(e))
-                driver.quit()
-                return "Invalid link."
-            except Exception as e:
-                logger.error(e)
-        try:
-            if "giphy" in url:
-                views_count = driver.find_element(By.CLASS_NAME,"ViewCountContainer-sc-15ri43l").text
-            else:
-                driver.quit()
-                return "Invalid url"
-        except NoSuchElementException as e:
-            logger.error("NoSuchElementException occurred: {}".format(e))
-        except Exception as e:
-            logger.error(e)
+            wait = WebDriverWait(driver, 30)
+            media = wait.until(EC.presence_of_element_located((By.CLASS_NAME,"media_gif__MBeQG")))
+            media.click()
+        if "giphy" in url:
+            views_count = driver.find_element(By.CLASS_NAME,"ViewCountContainer-sc-15ri43l").text
+        else:
+            driver.quit()
+            return "Invalid url"
         logger.info(views_count)
         driver.quit()
         return views_count
