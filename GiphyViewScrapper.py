@@ -32,20 +32,20 @@ def get_giphy_views(url):
                 media.click()
             except NoSuchElementException as e:
                 logger.error("NoSuchElementException occurred: {}".format(e))
-                return "Not a valid link."
+                driver.quit()
+                return "Invalid link."
             except Exception as e:
                 logger.error(e)
         try:
             if "giphy" in url:
                 views_count = driver.find_element(By.CLASS_NAME,"ViewCountContainer-sc-15ri43l").text
             else:
+                driver.quit()
                 return "Invalid url"
         except NoSuchElementException as e:
             logger.error("NoSuchElementException occurred: {}".format(e))
-            return views_count
         except Exception as e:
             logger.error(e)
-            return views_count
         logger.info(views_count)
         driver.quit()
         return views_count
